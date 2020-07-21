@@ -26,13 +26,17 @@ namespace DA.Ventas
                 SqlTransaction tr = cnx.BeginTransaction(IsolationLevel.Serializable);
                 try
                 {                    
-                    string sql = "SP_I_MS_ORDERCAB";
+                    string sql = "SP_I_MS_ORDERCAB_v2";
                     idorder = cnx.ExecuteScalar<Int32>(sql, new
                     {
                         P_OC_DATEORDER = DateTime.Parse(c.OC_DATEORDER),
                         P_OC_DELIVERDATE = DateTime.Parse(c.OC_DELIVERDATE),
                         P_OC_IDCURRENCY = c.OC_IDCURRENCY,
                         P_OC_IDCUSTOMER = c.OC_IDCUSTOMER,
+                        P_OC_UNIT_TRANS = c.OC_UNIT_TRANS,
+                        P_OC_CONDUCTOR = c.OC_CONDUCTOR,
+                        P_OC_AYUDANTE = c.OC_AYUDANTE,
+                        P_OC_RUTA = c.OC_RUTA,
                         P_OC_DELIVERYADD = c.OC_DELIVERYADD,
                         P_OC_IDPAYMENTTYPE = c.OC_IDPAYMENTTYPE,
                         P_OC_IDCENCOST = c.OC_IDCENCOST,
@@ -90,6 +94,20 @@ namespace DA.Ventas
 
         }
 
+        public static IEnumerable<ERE_LISTADOPEDIDO> GetListadoPedidosPendientes(int emp, string search)
+        {
+            var sql = "SP_S_LISTADOPEDIDOSPENDIENTES";
+            using (SqlConnection cnx = new SqlConnection(Utilidad.getCadenaCnx()))
+            {
+                cnx.Open();
+                return cnx.Query<ERE_LISTADOPEDIDO>(sql,
+                    new
+                    {
+                        P_OC_IDCOMPANY = emp,
+                        P_SEARCH = search
+                    }, commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
 
         public static List<ERE_LISTADOPEDIDO> GetListadoPedidos(int emp, int ayo, int mes)
         {
@@ -118,7 +136,7 @@ namespace DA.Ventas
 
         public static ERE_VISTAPEDIDOCAB GetRepVistaPedidoCab(int emp, int idorder)
         {
-            var sql = "SP_S_REPVISTAPEDIDOCAB";
+            var sql = "SP_S_REPVISTAPEDIDOCAB_v2";
             using (SqlConnection cnx = new SqlConnection(Utilidad.getCadenaCnx()))
             {
                 cnx.Open();

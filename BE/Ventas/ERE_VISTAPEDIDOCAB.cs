@@ -14,6 +14,10 @@ namespace BE.Ventas
         public string MONEDA { get; set; }
         public string CLIENTE { get; set; }
         public string VENDEDOR { get; set; }
+        public string UNIT_TRANS { get; set; }
+        public string CONDUCTOR { get; set; }
+        public string AYUDANTE { get; set; }
+        public string RUTA { get; set; }
         public string DIRENT { get; set; }
         public string TIPOPAGO { get; set; }
         public string CENTROCOSTO { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using BE.Almacen;
@@ -23,9 +24,22 @@ namespace WA_AndesTec.Controllers
         }
 
         [HttpGet, Route("{ide}/Stock/{alm}")]
-        public IEnumerable<ERE_LISTA02> GetStockxAlmacen(int ide,string alm)
+        public IEnumerable<ERE_LISTA02> GetStockxAlmacen(int ide, string alm)
         {
-            return negocio.ListarStockxAlmacen(ide,alm);
+            return negocio.ListarStockxAlmacen(ide, alm);
+        }
+
+        [HttpPost, Route("{ide}/Stock/{alm}")]
+        public HttpResponseMessage ReporStockxAlmacen(int ide,string alm)
+        {
+            var report = negocio.ReportStockxAlmacen(ide, alm);
+            report.Position = 0;
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StreamContent(report)
+            };
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            return response;
         }
 
         [HttpGet, Route("{ide}/stock/detalle/{idarti}")]

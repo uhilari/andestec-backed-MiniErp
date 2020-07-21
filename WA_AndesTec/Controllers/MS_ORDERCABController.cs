@@ -22,6 +22,12 @@ namespace WA_AndesTec.Controllers
             return negocio.GetListadoPedidos(ide, ayo, mes);
         }
 
+        [HttpGet, Route("{ide}/pedidos/pendientes")]
+        public IEnumerable<ERE_LISTADOPEDIDO> GetPedidosPendientes(int ide, string search = "")
+        {
+            return negocio.GetListadoPedidosPendientes(ide, search);
+        }
+
         [HttpGet, Route("{ide}/ayuda/{cli}")]
         public IEnumerable<ERE_LISTADOPEDIDOAYU> GetListadPedidosAyuda(int ide,int cli)
         {

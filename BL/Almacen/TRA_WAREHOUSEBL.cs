@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BE.Almacen;
+using BL.Reportes;
 using DA.Almacen;
 
 namespace BL.Almacen
@@ -18,9 +20,15 @@ namespace BL.Almacen
             return TRA_WAREHOUSEDA.GetAll(ide, alm, ayo, mes);
         }
 
-        public List<ERE_LISTA02> ListarStockxAlmacen(int ide, string alm)
+        public IEnumerable<ERE_LISTA02> ListarStockxAlmacen(int ide, string alm)
         {
             return TRA_WAREHOUSEDA.GetRepStockxAlmacen(ide, alm);
+        }
+
+        public Stream ReportStockxAlmacen(int ide, string alm)
+        {
+            return RE_REPORTEXCEL.CreateGetRepStockxAlmacen(ide, alm);
+            //return TRA_WAREHOUSEDA.GetRepStockxAlmacen(ide, alm);
         }
 
         public List<ERE_LISTA03> ListarDetalleStockxAlmacen(int ide, int idarticulo)

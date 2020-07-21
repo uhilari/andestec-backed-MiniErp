@@ -32,6 +32,11 @@ namespace BL.Ventas
             return ent;
         }
 
+        public IEnumerable<ERE_LISTADOPEDIDO> GetListadoPedidosPendientes(int emp, string search)
+        {
+            return MS_ORDERCABDA.GetListadoPedidosPendientes(emp, search);
+        }
+
         public List<ERE_VISTAPEDIDODET> GetListarVistaPedidoDet(int idcliente)
         {
             return MS_ORDERCABDA.GetRepVistaPedidoDet(idcliente);

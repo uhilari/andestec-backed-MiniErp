@@ -13,6 +13,10 @@ namespace BE.Ventas
         public string OC_DELIVERDATE { get; set; }
         public string OC_IDCURRENCY { get; set; }
         public int OC_IDCUSTOMER { get; set; }
+        public string OC_UNIT_TRANS { get; set; }
+        public string OC_CONDUCTOR { get; set; }
+        public string OC_AYUDANTE { get; set; }
+        public string OC_RUTA { get; set; }
         public string OC_DELIVERYADD { get; set; }
         public string OC_IDPAYMENTTYPE { get; set; }
         public int OC_IDCENCOST { get; set; }
